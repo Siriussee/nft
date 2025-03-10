@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-// import "@chainlink/contracts/src/v0.8/interfaces/IVRFCoordinatorV2Plus .sol";
+import {ERC721, ERC721URIStorage} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import {VRFConsumerBaseV2Plus} from "@chainlink/contracts/src/v0.8/vrf/dev/VRFConsumerBaseV2Plus.sol";
 import {VRFV2PlusClient} from "@chainlink/contracts/src/v0.8/vrf/dev/libraries/VRFV2PlusClient.sol";
 
@@ -105,9 +104,9 @@ contract RandomIpfsNft is ERC721URIStorage, VRFConsumerBaseV2Plus {
      * @return An array containing the cumulative chances for different breeds
      */
     function getChanceArray() public pure returns(uint256[3] memory) {
-        // 0 - 9 = St. Bernard
-        // 10 - 29 = Pug
-        // 30 - 99 = Shiba Inu
+        // 0 - 9 = brown
+        // 10 - 29 = yellow
+        // 30 - 99 = black
         return [10, 20, MAX_CHANCE_VALUE];
     }
 
