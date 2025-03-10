@@ -9,7 +9,7 @@ This document serves as a comprehensive guide for deploying and interacting with
    - [Centralized Storage](#centralized-storage)
    - [Decentralized Storage](#decentralized-storage)
 3. [Project Setup and Structure](#3-project-setup-and-structure)
-4. [Testing on a Local Node](#4-testing-on-a-local-node)
+4. [Configuring Testnet RPC and Private Key](#4-configuring-testnet-rpc-and-private-key)
 5. [Uploading Files to IPFS using Pinata](#5-uploading-files-to-ipfs-using-pinata)
 6. [Configuring ChainLink VRF Subscription](#6-configuring-chainlink-vrf-subscription)
 7. [Deploying Contracts on Sepolia](#7-deploying-contracts-on-sepolia)
@@ -111,13 +111,34 @@ The project follows this structure:
 
 ---
 
-## 4. Testing on a Local Node !DEPRECATED
+## 4. Configuring Testnet RPC and Private Key
 
-Test the deployment and minting locally on a Hardhat network using these commands:
-
-```bash
-npx hardhat run ./scripts/01-deploy-random-ipfs-nft.js --network hardhat
-npx hardhat run ./scripts/02-mint.js --network hardhat
+1. Obtain your `SEPOLIA_API_URL` and `SEPOLIA_PRIVATE_KEY` from [Alchemy Dashboard](https://dashboard.alchemy.com/).
+2. Create a `.env` file following the `.env-sample` file
+3. Update network settings `hardhat.config.js`. I am using base sepolia as my test network, so it should be
+```json
+networks: {
+  base_sepolia: {
+    chainId: 84532,
+    url: process.env.SEPOLIA_API_URL,
+    accounts: [process.env.SEPOLIA_PRIVATE_KEY]
+  }
+}
+```
+In case you are using hardhat or Ethereum Sepolia as test network
+```json
+networks: {
+  hardhat: {
+    chainId: 31337,
+    blockConformations: 1,
+    allowUnlimitedContractSize: true
+  },
+  sepolia: {
+    chainId: 11155111,
+    url: process.env.SEPOLIA_API_URL,
+    accounts: [process.env.SEPOLIA_PRIVATE_KEY]
+  }
+}
 ```
 
 ---
@@ -139,7 +160,6 @@ Before deploying contracts to a testnet, set up a ChainLink VRF subscription:
 
 1. Obtain some Sepolia Ether from [this faucet](https://cloud.google.com/application/web3/faucet/ethereum/sepolia).
 2. Get Sepolia LINK tokens from [this faucet](https://faucets.chain.link/sepolia).
-3. Obtain your `SEPOLIA_API_URL` and `SEPOLIA_PRIVATE_KEY` from [Alchemy Dashboard](https://dashboard.alchemy.com/).
 4. Navigate to [ChainLink VRF](https://vrf.chain.link/) and choose the Sepolia test network.
 5. Create a new subscription and confirm the transaction.
 6. Fund your subscription, then note down the following details:
