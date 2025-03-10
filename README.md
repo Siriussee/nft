@@ -116,9 +116,7 @@ The project follows this structure:
 1. Obtain your `SEPOLIA_API_URL` and `SEPOLIA_PRIVATE_KEY` from [Alchemy Dashboard](https://dashboard.alchemy.com/).
 2. Create a `.env` file following the `.env-sample` file
 3. Update network settings `hardhat.config.js`. I am using base sepolia as my test network, so it should be
-```json
-
-{
+```javascript
 networks: {
   base_sepolia: {
     chainId: 84532,
@@ -126,11 +124,10 @@ networks: {
     accounts: [process.env.SEPOLIA_PRIVATE_KEY]
   }
 }
-}
+
 ```
 In case you are using hardhat or Ethereum Sepolia as test network
-```json
-{
+```javascript
 networks: {
   hardhat: {
     chainId: 31337,
@@ -142,7 +139,6 @@ networks: {
     url: process.env.SEPOLIA_API_URL,
     accounts: [process.env.SEPOLIA_PRIVATE_KEY]
   }
-}
 }
 ```
 
@@ -179,7 +175,7 @@ Before deploying contracts to a testnet, set up a ChainLink VRF subscription:
 Deploy the NFT smart contract with the following command:
 
 ```bash
-npx hardhat run ./scripts/01-deploy-random-ipfs-nft.js --network sepolia
+npx hardhat run ./scripts/01-deploy-random-ipfs-nft.js --network base_sepolia
 ```
 
 Sample output:
