@@ -117,6 +117,8 @@ The project follows this structure:
 2. Create a `.env` file following the `.env-sample` file
 3. Update network settings `hardhat.config.js`. I am using base sepolia as my test network, so it should be
 ```json
+
+{
 networks: {
   base_sepolia: {
     chainId: 84532,
@@ -124,9 +126,11 @@ networks: {
     accounts: [process.env.SEPOLIA_PRIVATE_KEY]
   }
 }
+}
 ```
 In case you are using hardhat or Ethereum Sepolia as test network
 ```json
+{
 networks: {
   hardhat: {
     chainId: 31337,
@@ -138,6 +142,7 @@ networks: {
     url: process.env.SEPOLIA_API_URL,
     accounts: [process.env.SEPOLIA_PRIVATE_KEY]
   }
+}
 }
 ```
 
