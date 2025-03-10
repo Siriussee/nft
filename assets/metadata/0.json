@@ -1,0 +1,15 @@
+{
+    "name": "brown",
+    "description": "An adorable brown",
+    "image": "ipfs://bafybeig4k7qfzkwguc5ldjj22lodnujmqoo5cnmg66dtlt3jl6khqqdq7e/brown.png",
+    "attributes": [
+        {
+            "trait_type": "Cuteness",
+            "value": 100 
+        },
+        {
+            "trait_type": "Smartness",
+            "value": 90 
+        }
+    ]
+}

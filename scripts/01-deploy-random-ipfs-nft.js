@@ -10,9 +10,9 @@ async function main() {
     const callBackGasLimit = "500000"
     const gasLane = "0x474e34a077df58807dbe9c96d3c009b23b3c6d0cce433e59bbf5b34f823bc56c"
     const tokenUris = [
-        "ipfs://bafybeig47wi6sf6etamzjwdjzs5t2obsvc4w3bvrmwvyqtcikzhrcgtwre/0.json",
-        "ipfs://bafybeig47wi6sf6etamzjwdjzs5t2obsvc4w3bvrmwvyqtcikzhrcgtwre/1.json",
-        "ipfs://bafybeig47wi6sf6etamzjwdjzs5t2obsvc4w3bvrmwvyqtcikzhrcgtwre/2.json"
+        "ipfs://bafkreigclhrq7ksi72lzjmqwvfmtnifvl27cxqekmvmu3s6luk7rnxbkyy",
+        "ipfs://bafkreidvsdgvt4kdtvup2ln4t2z4z2dnrjlmw2pjngnbhbpumnliqa5hiu",
+        "ipfs://bafkreiadx5a7mu7jxs77zswacleogo5sq5rduzlej6vo5byzddzqvvmqiy"
     ]
     // if we are working with a testnet or a mainnet
     // those addresses will exist
@@ -36,8 +36,8 @@ async function main() {
         vrfCoordinatorV2Address=vrfCoordinatorV2Mock.target
     } else {
         // use the real ones 
-        vrfCoordinatorV2Address = "0x8103B0A8A00be2DDC778e6e7eaa21791Cd364625"
-        subscriptionId = "9328"
+        vrfCoordinatorV2Address = "0x9DdfaCa8183c41ad55329BdeeD9F6A8d53168B1B"
+        subscriptionId = "14592456473335114167384338081317728502846364395099395116596762464962850240770"
     }
 
     args = [

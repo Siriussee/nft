@@ -118,6 +118,38 @@ yarn install
 - `scripts`
     - `01-deploy-random-ipfs-nft.js`
     - `02-mint.js`
+- `assets`
+    - Dog images
+    - NFT config json
 
-### Deploy contracts 
+### Test it on local node
+
+```
+npx hardhat run .\scripts\01-deploy-random-ipfs-nft.js --network hardhat
+npx hardhat run .\scripts\02-mint.js --network hardhat
+```
+
+### Pin (upload) files to IPFS using Pinata
+
+0. Create an account at [Pinata](https://app.pinata.cloud/ipfs/files)
+1. Upload the images (I have done it for you, see [this](https://ipfs.io/ipfs/bafybeig4k7qfzkwguc5ldjj22lodnujmqoo5cnmg66dtlt3jl6khqqdq7e/))
+2. Edit the `image` URI in the json files, and upload them too (I have done it for you, see [this](https://ipfs.io/ipfs/bafybeig4k7qfzkwguc5ldjj22lodnujmqoo5cnmg66dtlt3jl6khqqdq7e/))
+3. Copy paste json IPFS URI to Line 14 `tokenUris` in `01-deploy-random-ipfs-nft.js`
+
+### Create Chainlink VRF Subscription
+
+0. [Get some Sepolia Ether](https://cloud.google.com/application/web3/faucet/ethereum/sepolia)
+0. [Get some Sepolia LINK](https://faucets.chain.link/sepolia)
+0. [Get `SEPOLIA_API_URL` and `SEPOLIA_PRIVATE_KEY`](https://dashboard.alchemy.com/)
+1. Go to https://vrf.chain.link/
+2. Choose Sepolia test net
+3. Create subscription, check and confirm transaction
+4. Add fund to the subscription, check and confirm transaction
+5. Copy paste `VRF Coordinator` address and `subscription ID` to Line 39 and 40 in `01-deploy-random-ipfs-nft.js`
+
+### Deploy contracts on Sepolia
+
+```
+npx hardhat run .\scripts\01-deploy-random-ipfs-nft.js --network sepolia
+```
 

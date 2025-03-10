@@ -1,0 +1,15 @@
+{
+    "name": "black",
+    "description": "An adorable dark pupi",
+    "image": "ipfs://bafybeig4k7qfzkwguc5ldjj22lodnujmqoo5cnmg66dtlt3jl6khqqdq7e/dark.png",
+    "attributes": [
+        {
+            "trait_type": "Cuteness",
+            "value": 130 
+        },
+        {
+            "trait_type": "Smartness",
+            "value": 120
+        }
+    ]
+}
