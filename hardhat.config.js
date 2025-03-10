@@ -9,8 +9,8 @@ module.exports = {
         blockConformations: 1,
         allowUnlimitedContractSize: true
       },
-      sepolia: {
-        chainId: 11155111,
+      base_sepolia: {
+        chainId: 84532,
         url: process.env.SEPOLIA_API_URL,
         accounts: [process.env.SEPOLIA_PRIVATE_KEY]
       }

@@ -8,7 +8,7 @@ async function main() {
     let vrfCoordinatorV2Address, subscriptionId
     const FUND_AMOUNT = "10000000000000000000"
     const callBackGasLimit = "500000"
-    const gasLane = "0x474e34a077df58807dbe9c96d3c009b23b3c6d0cce433e59bbf5b34f823bc56c"
+    const gasLane = "0x9e1344a1247c8a1785d0a4681a27152bffdb43666ae5bf7d14d24a5efd44bf71"
     const tokenUris = [
         "ipfs://bafkreigclhrq7ksi72lzjmqwvfmtnifvl27cxqekmvmu3s6luk7rnxbkyy",
         "ipfs://bafkreidvsdgvt4kdtvup2ln4t2z4z2dnrjlmw2pjngnbhbpumnliqa5hiu",
@@ -36,8 +36,8 @@ async function main() {
         vrfCoordinatorV2Address=vrfCoordinatorV2Mock.target
     } else {
         // use the real ones 
-        vrfCoordinatorV2Address = "0x9DdfaCa8183c41ad55329BdeeD9F6A8d53168B1B"
-        subscriptionId = "14592456473335114167384338081317728502846364395099395116596762464962850240770"
+        vrfCoordinatorV2Address = "0x5C210eF41CD1a72de73bF76eC39637bB0d3d7BEE"
+        subscriptionId = "69198100362267041681917894627518022775673535085807838474754956171677875434238"
     }
 
     args = [

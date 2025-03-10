@@ -2,16 +2,6 @@
 
 This project demonstrates how to create a set of NFTs, enable the randomness of minting, and list them in OpenSea.
 
-Try running some of the following tasks:
-
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/filename.js
-```
-
 ## Understand NFT
 
 Please read: [ERC-721: Non-Fungible Token Standard](https://eips.ethereum.org/EIPS/eip-721)
@@ -145,11 +135,33 @@ npx hardhat run .\scripts\02-mint.js --network hardhat
 2. Choose Sepolia test net
 3. Create subscription, check and confirm transaction
 4. Add fund to the subscription, check and confirm transaction
-5. Copy paste `VRF Coordinator` address and `subscription ID` to Line 39 and 40 in `01-deploy-random-ipfs-nft.js`
+5. Copy paste `Key hash`, `VRF Coordinator` address and `subscription ID` to Line 11 `gas_lane`, Line 39 `vrfCoordinatorV2Address` and 40 `subscriptionId` in `01-deploy-random-ipfs-nft.js`
 
-### Deploy contracts on Sepolia
+### Deploy contracts on Sepolia and add VRF Consumer
 
 ```
 npx hardhat run .\scripts\01-deploy-random-ipfs-nft.js --network sepolia
 ```
+You will get output like
+```
+Deploying contracts with the account: 0x2754f28BA6c367d58a2cDDaF72b010140Dd4989D
+Deploying contracts to chainid: 84532
+NFT Contract is Deployed at:  0x45E9f58569d46aAb2e7891d77d282Eadc380E8E9
+```
+Then update the consumer address at [Chainlink VRF](https://vrf.chain.link/)
 
+Also update the contract address at `02-mint.js`
+
+### Mint an NFT
+
+```
+npx hardhat run .\scripts\02-mint.js --network base_sepoli
+```
+
+And go to [blockchain explorer](https://sepolia.basescan.org/address/0x2754f28BA6c367d58a2cDDaF72b010140Dd4989D), you can find [the NFT you just mint](https://sepolia.basescan.org/token/0x45e9f58569d46aab2e7891d77d282eadc380e8e9).
+
+Go back to [Chainlink VRF](https://vrf.chain.link/), you will find the fulfillment plus 1.
+
+Go to [test net opensea](https://testnets.opensea.io/), and check [if our RIN collection is up](https://testnets.opensea.io/collection/random-ipfs-nft-190).
+
+You can also mint a lot (as you as you have enough ether to pay gas and enough LINK to pay VRF fee) to check if the randomness works.

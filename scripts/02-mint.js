@@ -5,7 +5,7 @@ async function main() {
 
     const chainId = network.config.chainId
     console.log("Interacting contracts to chainid:", chainId);
-    const randomIpfsNft = await ethers.getContractAt("RandomIpfsNft","0x79245700fccb6c3c41732ff44279638536fc88e9")    
+    const randomIpfsNft = await ethers.getContractAt("RandomIpfsNft","0x45e9f58569d46aab2e7891d77d282eadc380e8e9")    
     console.log(randomIpfsNft)
     const randomIpfsNftMintTx = await randomIpfsNft.requestDoggie()
     const randomIpfsNftMintTxReceipt = await randomIpfsNftMintTx.wait(1)

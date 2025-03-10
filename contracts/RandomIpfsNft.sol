@@ -2,24 +2,21 @@
 pragma solidity ^0.8.19;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
-import "@chainlink/contracts/src/v0.8/vrf/VRFConsumerBaseV2.sol";
+// import "@chainlink/contracts/src/v0.8/interfaces/IVRFCoordinatorV2Plus .sol";
+import {VRFConsumerBaseV2Plus} from "@chainlink/contracts/src/v0.8/vrf/dev/VRFConsumerBaseV2Plus.sol";
+import {VRFV2PlusClient} from "@chainlink/contracts/src/v0.8/vrf/dev/libraries/VRFV2PlusClient.sol";
 
 /**
  * @title RandomIpfsNft
  * @dev This contract allows users to mint random NFTs based on a Chainlink VRF-derived random number.
  * Each NFT represents a different breed of dog, and the breed is determined by the randomness provided.
  */
-contract RandomIpfsNft is ERC721URIStorage, VRFConsumerBaseV2 {
-    
-    // Chainlink VRF Coordinator for getting random values
-    VRFCoordinatorV2Interface immutable i_vrfCoordinator;
-
+contract RandomIpfsNft is ERC721URIStorage, VRFConsumerBaseV2Plus {
     // Key hash for gas lane
     bytes32 immutable i_gasLane;
 
     // Chainlink subscription ID
-    uint64 immutable i_subscriptionId;
+    uint256 immutable i_subscriptionId;
 
     // Gas limit for the callback function
     uint32 immutable i_callBackGasLimit;
@@ -49,22 +46,18 @@ contract RandomIpfsNft is ERC721URIStorage, VRFConsumerBaseV2 {
     constructor(
         address vrfCoordinatorV2, 
         bytes32 gasLane, 
-        uint64 subscriptionId,
+        uint256 subscriptionId,
         uint32 callBackGasLimit,
         string[3] memory dogTokenUris
     ) 
         ERC721("Random IPFS NFT", "RIN") 
-        VRFConsumerBaseV2(vrfCoordinatorV2)
+        VRFConsumerBaseV2Plus(vrfCoordinatorV2)
     {
-        i_vrfCoordinator = VRFCoordinatorV2Interface(vrfCoordinatorV2);
         i_gasLane = gasLane;
         i_subscriptionId = subscriptionId;
         i_callBackGasLimit = callBackGasLimit;
         s_tokenCounter = 0;
         s_dogTokenUris = dogTokenUris;
-        // 0 = St. Bernard
-        // 1 = Pug
-        // 2 = Shiba Inu
     }
 
     /**
@@ -72,12 +65,17 @@ contract RandomIpfsNft is ERC721URIStorage, VRFConsumerBaseV2 {
      * @return requestId The request ID for the random number generation
      */
     function requestDoggie() public returns (uint256 requestId) {
-        requestId = i_vrfCoordinator.requestRandomWords(
-            i_gasLane,
-            i_subscriptionId,
-            REQUEST_CONFIRMATIONS,
-            i_callBackGasLimit,
-            NUM_WORDS
+        requestId = s_vrfCoordinator.requestRandomWords(
+            VRFV2PlusClient.RandomWordsRequest({
+                keyHash: i_gasLane,
+                subId: i_subscriptionId,
+                requestConfirmations: REQUEST_CONFIRMATIONS,
+                callbackGasLimit: i_callBackGasLimit,
+                numWords: NUM_WORDS,
+                extraArgs: VRFV2PlusClient._argsToBytes(
+                    VRFV2PlusClient.ExtraArgsV1({nativePayment: false})
+                )
+            })
         );
         s_requestIdToSender[requestId] = msg.sender;
     } 
@@ -87,7 +85,7 @@ contract RandomIpfsNft is ERC721URIStorage, VRFConsumerBaseV2 {
      * @param requestId The ID of the request
      * @param randomWords The array of random words generated
      */
-    function fulfillRandomWords(uint256 requestId, uint256[] memory randomWords) internal override {
+    function fulfillRandomWords(uint256 requestId, uint256[] calldata randomWords) internal override {
         // Owner of the dog NFT
         address dogOwner = s_requestIdToSender[requestId];
         uint256 newTokenId = s_tokenCounter;
